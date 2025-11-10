@@ -1,32 +1,179 @@
 {
-  "name": "Leaders Coaching Center",
+  "name": "Leaders Coaching Center | Empowering Students for Success",
   "short_name": "Leaders Coaching Center",
-  "description": "Leaders Coaching Center - Empowering Students for Success",
+  "description": "Explore our portfolio of educational projects, campus initiatives, and innovative learning solutions at Leaders Coaching Center.",
   "start_url": "/",
-  "display": "standalone",
+  "theme_color": "#ffd600",
   "background_color": "#ffffff",
-  "theme_color": ["#2b1f6a", "#ffe200", "#ffffff", "#4f4b63"],
+  "display": "standalone",
   "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-US",
+  "categories": ["education", "IT", "E-learning", "news", "game", "music", "travel", "food"],
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "screenshots": [],
+  "iarc_rating_id": "e.g. 123456",
+  "iarc_sandbox_id": "e.g. 123456",
+  "gcm_sender_id": "e.g. 1234567890",
+  "gcm_user_visible_only": true,
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "type": "classic",
+    "update_via_cache": "none"
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/compose?to=%s"
+    },
+    {
+      "protocol": "web+leaderscoachingcenter",
+      "url": "/?url=%s"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "short_name": "Home",
+      "url": "/",
+      "icons": [
+        {
+          "src": "./logo/favicon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "custom_shortcuts": [
+    {
+      "name": "Contact",
+      "short_name": "Contact",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "./logo/favicon.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://leaderscoachingcenter.vercel.app",
+      "id": "Leaders Coaching Center"
+    }
+  ],
   "icons": [
     {
-      "src": "./logo/leaders-coaching-center-logo.png",
+      "src": "./logo/favicon.png",
       "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "./logo/leaders-coaching-center-logo.png",
+      "src": "./logo/favicon.png",
       "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "./logo/leaders-coaching-center-logo.png",
+      "src": "./logo/favicon.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./logo/leaders-coaching-center-logo.png",
+      "src": "./logo/favicon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "maskable_icon": true,
+  "apple": {
+    "status_bar_style": "black-translucent",
+    "web_app_capable": "yes",
+    "web_app_title": "Leaders Coaching Center"
+  },
+  "ms": {
+    "tile_color": "#ffd600",
+    "tile_image": "./logo/favicon.png",
+    "config": ""
+  },
+  "share_target": {
+    "action": "/share-target",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": ["image/*", "video/*"]
+        }
+      ]
+    }
+  },
+  "file_handlers": [
+    {
+      "action": "/file-handler",
+      "accept": {
+        "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
+        "text/*": [".txt", ".md", ".json", ".xml"],
+        "application/pdf": [".pdf"]
+      }
+    }
+  ],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "display_override": ["standalone", "fullscreen"],
+  "description_short": "Leaders Coaching Center | Empowering Students for Success",
+  "description_long": "Explore our portfolio of educational projects, campus initiatives, and innovative learning solutions at Leaders Coaching Center.",
+  "developer": {
+    "name": "Muhammad Zeeshan Khan",
+    "url": "https://mzeeshankhan.netlify.app"
+  },
+  "version": "1.0.0",
+  "build_date": "2025-10-11",
+  "last_updated": "2025-10-11",
+  "license": "MIT",
+  "keywords": [
+    "Leaders Coaching Center",
+    "Education",
+    "Coaching",
+    "Student Success",
+    "Learning Solutions",
+    "Campus Initiatives",
+    "Educational Projects",
+    "Academic Excellence",
+    "Skill Development",
+    "Career Growth"
+  ],
+  "privacy_policy": "https://leaderscoachingcenter.vercel.app/privacy",
+  "terms_of_service": "https://leaderscoachingcenter.vercel.app/terms",
+  "support": {
+    "email": "zebotix@gmail.com",
+    "url": "https://leaderscoachingcenter.vercel.app"
+  },
+  "contact": {
+    "email": "zebotix@gmail.com",
+    "url": "https://leaderscoachingcenter.vercel.app/contact"
+  },
+  "social": {
+    "twitter": "https://x.com/zebotix1499",
+    "facebook": "https://www.facebook.com/people/Zebotix/61567313714101/",
+    "instagram": "https://www.instagram.com/zebotix",
+    "github": "https://github.com/Zebotix"
+  },
+  "locales": {
+    "en-US": {
+      "name": "Leaders Coaching Center | Empowering Students for Success",
+      "short_name": "Leaders Coaching Center",
+      "description": "Explore our portfolio of educational projects, campus initiatives, and innovative learning solutions at Leaders Coaching Center."
+    }
+  }
 }

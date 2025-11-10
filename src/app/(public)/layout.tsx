@@ -1,7 +1,7 @@
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/layout/Navbar';
 import React from 'react';
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebar } from '@/components/layout/app-sidebar';
 import { cookies } from 'next/headers';
 import { ThemeProvider } from '@/components/theme-provider';
 

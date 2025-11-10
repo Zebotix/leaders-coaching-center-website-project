@@ -38,6 +38,8 @@ function getStaticPaths(): string[] {
 //   }
 // }
 
+export const revalidate = 60;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPaths = getStaticPaths();
   //   const dynamicPaths = await getDynamicSlugs();

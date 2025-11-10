@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { ThemeProvider } from 'next-themes';
 import './globals.css';
-
 export const metadata: Metadata = {
   title: {
     default: 'Leaders Coaching Center | Empowering Students for Success',
@@ -49,7 +47,7 @@ export const metadata: Metadata = {
       'Explore our portfolio of educational projects, campus initiatives, and innovative learning solutions at Leaders Coaching Center.',
     images: [
       {
-        url: '/logo/leaders-coaching-center-logo.png', // Replace with actual Open Graph image
+        url: '/logo/favicon.png', // Replace with actual Open Graph image
         width: 1200,
         height: 630,
         alt: 'Leaders Coaching Center',
@@ -61,19 +59,19 @@ export const metadata: Metadata = {
     title: 'Leaders Coaching Center | Empowering Students for Success',
     description:
       'Explore our portfolio of educational projects, campus initiatives, and innovative learning solutions at Leaders Coaching Center.',
-    images: ['/logo/leaders-coaching-center-logo.png'],
+    images: ['/logo/favicon.png'],
     creator: '@LeadersCoachingCenter',
   },
   icons: {
     icon: [
-      { url: '/logo/leaders-coaching-center-logo.png', sizes: '16x16', type: 'image/png' },
-      { url: '/logo/leaders-coaching-center-logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo/favicon.png', sizes: '16x16', type: 'image/png' },
+      { url: '/logo/favicon.png', sizes: '32x32', type: 'image/png' },
     ],
-    apple: [{ url: '/logo/leaders-coaching-center-logo.png', sizes: '180x180', type: 'image/png' }],
+    apple: [{ url: '/logo/favicon.png', sizes: '180x180', type: 'image/png' }],
     other: [
       {
         rel: 'mask-icon',
-        url: '/logo/leaders-coaching-center-logo.png',
+        url: '/logo/favicon.png',
         color: '#5bbad5',
       },
     ],
@@ -100,7 +98,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={` antialiased`}>{children}</body>
+      <body className={`min-h-screen w-screen overflow-hidden antialiased`}>{children}</body>
     </html>
   );
 }

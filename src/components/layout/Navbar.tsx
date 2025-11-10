@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SidebarTrigger } from './ui/sidebar';
+import { SidebarTrigger } from '../ui/sidebar';
 import {
   Select,
   SelectContent,
@@ -10,11 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { BookOpenText, FileText, ClipboardList, Lightbulb } from 'lucide-react';
+import { BookOpenText, FileText, ClipboardList, Lightbulb, User2 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import ModeToggle from '../ThemeButton';
 
 const classes = [
   { name: '9th Class', slug: '9th-class' },
@@ -43,6 +44,8 @@ const navLinks = [
 export default function Navbar() {
   const router = useRouter();
   const pathName = usePathname();
+
+  const user = false;
   return (
     <header className='w-full flex justify-between items-center px-4 py-2 bg-white shadow-sm sticky top-0 z-50'>
       {/* Logo */}
@@ -55,8 +58,9 @@ export default function Navbar() {
           width={9000}
           height={9000}
         />
-        <h1 className='hidden sm:block font-semibold text-lg text-gray-800'>
-          Leaders Coaching Center
+        <h1 className='flex flex-col font-semibold  text-gray-800'>
+          <span className='text-xl tracking-widest sm:text-3xl sm:tracking-wider'>Leaders </span>
+          <span className='text-xs sm:text-base'>Coaching Center</span>
         </h1>
       </div>
 
@@ -69,7 +73,7 @@ export default function Navbar() {
               href={path}
               className={
                 'py-2  text-sm text-gray-700' +
-                (pathName === path
+                (pathName === path || pathName?.startsWith(path + '/')
                   ? ' font-semibold border-b-2 border-blue-600'
                   : ' hover:text-gray-900')
               }
@@ -78,10 +82,24 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-8'>
           {classes.map((cls) => (
             <CustomSelect key={cls.slug} cls={cls} />
           ))}
+          {user ? (
+            <Image
+              src='/logo/leaders-coaching-center-logo.png'
+              alt='Leaders Coaching Center'
+              className='size-8 rounded-full'
+              loading='eager'
+              width={9000}
+              height={9000}
+            />
+          ) : (
+            <Button variant={'outline'}>
+              <User2 className='mr-2 h-4 w-4' /> Login
+            </Button>
+          )}
         </div>
       </div>
 
@@ -116,7 +134,7 @@ export function CustomSelect({ cls }: { cls: { name: string; slug: string } }) {
       {/* Dropdown Button */}
       <button
         onClick={() => setOpen(!open)}
-        className='cursor-pointer w-[150px] h-9 px-3 flex items-center justify-between bg-white hover:bg-[#ffd600] text-sm font-medium  transition-all'
+        className='cursor-pointer w-fit p-2 h-9 flex items-center justify-between bg-white hover:bg-[#ffd600] text-sm font-medium  transition-all'
       >
         {cls.name}
         <ChevronDown
@@ -127,7 +145,7 @@ export function CustomSelect({ cls }: { cls: { name: string; slug: string } }) {
 
       {/* Dropdown Menu */}
       {open && (
-        <div className='absolute mt-1 w-full bg-white border border-gray-200 rounded-md shadow-lg z-50'>
+        <div className='absolute mt-1 w-[150px] bg-white border border-gray-200 rounded-md shadow-lg z-50'>
           {subLinks.map((link) => (
             <button
               key={link.path}

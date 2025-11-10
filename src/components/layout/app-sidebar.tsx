@@ -30,9 +30,9 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './ui/dropdown-menu';
+} from '../ui/dropdown-menu';
 import Link from 'next/link';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 export function AppSidebar() {
   const { isMobile, toggleSidebar } = useSidebar();
