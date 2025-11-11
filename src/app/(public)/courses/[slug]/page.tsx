@@ -43,23 +43,28 @@ export default async function CourseSlug({ params }: { params: Promise<{ slug: s
 }
 
 export async function generateStaticParams({ params }: { params: Promise<{ slug: string }> }) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    // Add revalidation if needed
-    next: {
-      revalidate: 60, // Revalidate every 60 seconds
-      // or use tags: ['courses']
-    },
-  });
-  if (!response.ok) {
-    throw new Error('Failed to fetch courses for static params');
-  }
-  const data = await response.json();
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // Add revalidation if needed
+      next: {
+        revalidate: 60, // Revalidate every 60 seconds
+        // or use tags: ['courses']
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch courses for static params');
+    }
+    const data = await response.json();
 
-  return data.courses.map((course: any) => ({
-    slug: course.slug,
-  }));
+    return data.courses.map((course: any) => ({
+      slug: course.slug,
+    }));
+  } catch (error) {
+    console.error('Failed to generate static params:', error);
+    return [];
+  }
 }
