@@ -54,6 +54,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   reactCompiler: true,
+  turbopack: {},
 };
 
 export default nextConfig;
