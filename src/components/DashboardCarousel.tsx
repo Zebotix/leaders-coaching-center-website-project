@@ -46,7 +46,7 @@ export default function DashboardCarousel() {
   return (
     <div className='w-full flex justify-center'>
       <Carousel
-        className='w-full max-w-7xl rounded-xl overflow-hidden shadow-lg relative group'
+        className='w-full max-w-8xl rounded-xl overflow-hidden shadow-lg relative group'
         plugins={[autoplay.current]}
       >
         <CarouselContent>
@@ -56,7 +56,7 @@ export default function DashboardCarousel() {
                 <CardContent className='p-0'>
                   <div
                     className='relative w-full 
-                    h-[400px] lg:h-[500px]'
+                    h-[400px] lg:h-[570px]'
                   >
                     <Image
                       src={slide.image}
@@ -88,13 +88,13 @@ export default function DashboardCarousel() {
         </CarouselContent>
         {/* Navigation Arrows */}
         <CarouselPrevious
-          className='absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 
+          className='cursor-pointer absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 
           opacity-0 group-hover:opacity-100 transition 
           bg-white/80 hover:bg-white text-gray-700 shadow-md 
           rounded-full size-8 sm:size-10 flex items-center justify-center'
         />
         <CarouselNext
-          className='absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 
+          className='cursor-pointer absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 
           opacity-0 group-hover:opacity-100 transition 
           bg-white/80 hover:bg-white text-gray-700 shadow-md 
           rounded-full size-8 sm:size-10 flex items-center justify-center'

@@ -1,6 +1,10 @@
 import React from 'react';
-import CarouselPlugin from '../DashboardCarousel';
+import DashboardCarousel from '../DashboardCarousel';
 
 export default function Hero() {
-  return <CarouselPlugin />;
+  return (
+    <section className='shadow-sm pb-4'>
+      <DashboardCarousel />
+    </section>
+  );
 }

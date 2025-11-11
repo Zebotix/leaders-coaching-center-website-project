@@ -2,20 +2,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { SidebarTrigger } from '../ui/sidebar';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { BookOpenText, FileText, ClipboardList, Lightbulb, User2 } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import ModeToggle from '../ThemeButton';
 
 const classes = [
   { name: '9th Class', slug: '9th-class' },
@@ -47,20 +38,21 @@ export default function Navbar() {
 
   const user = false;
   return (
-    <header className='w-full flex justify-between items-center px-4 py-2 bg-white shadow-sm sticky top-0 z-50'>
+    <header className='w-full flex justify-between items-center p-2 bg-yellow-500 shadow-sm sticky top-0 z-50'>
       {/* Logo */}
       <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-2'>
         <Image
           src='/logo/leaders-coaching-center-logo.png'
           alt='Leaders Coaching Center'
-          className='size-14 sm:size-20'
+          className='size-14'
           loading='eager'
           width={9000}
           height={9000}
         />
-        <h1 className='flex flex-col font-semibold  text-gray-800'>
-          <span className='text-xl tracking-widest sm:text-3xl sm:tracking-wider'>Leaders </span>
-          <span className='text-xs sm:text-base'>Coaching Center</span>
+        <h1 className='flex flex-col font-semibold  text-accent-strong'>
+          <span className='text-xl tracking-widest'>Leaders </span>
+
+          <span className='text-xs tracking-tight'>Coaching Center</span>
         </h1>
       </div>
 
@@ -72,10 +64,10 @@ export default function Navbar() {
               key={label}
               href={path}
               className={
-                'py-2  text-sm text-gray-700' +
+                'p-2  text-sm text-gray-700' +
                 (pathName === path || pathName?.startsWith(path + '/')
-                  ? ' font-semibold border-b-2 border-blue-600'
-                  : ' hover:text-gray-900')
+                  ? ' font-extrabold border-b-2 border-blue-600'
+                  : 'font-medium hover:text-gray-900')
               }
             >
               {label}
@@ -96,7 +88,7 @@ export default function Navbar() {
               height={9000}
             />
           ) : (
-            <Button variant={'outline'}>
+            <Button variant={'outline'} className='text-xs'>
               <User2 className='mr-2 h-4 w-4' /> Login
             </Button>
           )}

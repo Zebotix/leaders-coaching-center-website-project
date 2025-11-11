@@ -90,6 +90,10 @@
   --radius-3xl: calc(var(--radius) + 16px);
   --radius-full: 9999px;
 
+  /* fonts */
+  --font-merriweather: 'Merriweather', serif;
+  --font-inter: 'Inter', sans-serif;
+
   /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -464,4 +468,67 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+:root {
+  --sb-track: #ffd600; /* track */
+  --sb-thumb: #2b1f6a; /* thumb (zebotix-blue) */
+  --sb-thumb-hover: #2b1f6ad0; /* hover */
+  --sb-width: 12px; /* width of scrollbar */
+}
+
+/* Apply to your modal panel (class .modal-scroll) */
+.modal-scroll {
+  scrollbar-gutter: stable both-edges; /* prevents layout shift when scroll appears */
+  -webkit-overflow-scrolling: touch; /* smooth momentum on iOS */
+  overflow: auto;
+}
+
+/* WebKit browsers (Chrome, Edge, Safari) */
+.modal-scroll::-webkit-scrollbar {
+  width: var(--sb-width);
+  height: var(--sb-width);
+}
+.modal-scroll::-webkit-scrollbar-track {
+  background: var(--sb-track);
+  border-radius: 999px;
+}
+.modal-scroll::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb);
+  border-radius: 999px;
+  min-height: 44px; /* keep thumb usable for touch */
+  border: 3px solid rgba(0, 0, 0, 0); /* optional padding effect */
+}
+.modal-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--sb-thumb-hover);
+}
+
+/* Firefox */
+.modal-scroll {
+  scrollbar-width: thin; /* or auto */
+  scrollbar-color: var(--sb-thumb) var(--sb-track);
+}
+
+.modal-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 24px;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+
+.modal-gradient.top {
+  top: 0;
+  /* background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), transparent); */
+}
+.modal-gradient.bottom {
+  bottom: 0;
+  /* background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), transparent); */
+}
+
+/* show when active */
+.modal-gradient.show {
+  opacity: 1;
 }

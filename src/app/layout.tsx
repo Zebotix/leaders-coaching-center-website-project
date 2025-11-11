@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Dosis, Inter, Merriweather } from 'next/font/google';
 import './globals.css';
 export const metadata: Metadata = {
   title: {
@@ -91,6 +92,19 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: '#ededed' },
   ],
 };
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-merriweather',
+});
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  variable: '--font-inter',
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -98,7 +112,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' suppressHydrationWarning>
-      <body className={`min-h-screen w-screen overflow-hidden antialiased`}>{children}</body>
+      <body
+        className={`modal-scroll ${merriweather.className} ${inter.className} tracking-wider min-h-screen w-screen overflow-x-hidden antialiased`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

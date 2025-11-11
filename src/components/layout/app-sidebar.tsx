@@ -70,14 +70,11 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <SidebarGroupLabel className='flex justify-between items-center'>
-          <h1
-            className='cursor-pointer text-lg text-black  font-normal'
-            onClick={() => router.push('/')}
+        <SidebarGroupLabel className='relative'>
+          <span
+            className='text-black text-3xl cursor-pointer absolute top-0 right-0'
+            onClick={() => toggleSidebar()}
           >
-            Leaders Coaching Center
-          </h1>
-          <span className='text-black text-3xl cursor-pointer' onClick={() => toggleSidebar()}>
             ×
           </span>
         </SidebarGroupLabel>
