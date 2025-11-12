@@ -69,7 +69,7 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar className='z-10'>
+    <Sidebar className='z-10 bg-white'>
       <SidebarHeader>
         <SidebarGroupLabel className='relative'>
           <span
@@ -135,37 +135,6 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      {/* 👤 Footer (User Menu) */}
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            {user ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <SidebarMenuButton>
-                    <User2 /> Username
-                    <ChevronUp className='ml-auto' />
-                  </SidebarMenuButton>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent side='top' className='w-[--radix-popper-anchor-width]'>
-                  <DropdownMenuItem>
-                    <span>Account</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Billing</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <span>Sign out</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <LoginButton className='w-full' />
-            )}
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   );
 }

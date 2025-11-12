@@ -4,27 +4,26 @@ import { createPortal } from 'react-dom';
 import { Button } from './ui/button';
 import { X, Mail, User2, Lock, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
-import { authClient } from '@/lib/auth-client';
 import { signIn, signUp } from '@/lib/server-actions/auth-user';
+import { useIsMobile } from '@/hooks/use-mobile';
+import { useSidebar } from './ui/sidebar';
+import { useForm } from 'react-hook-form';
+import { Input } from './ui/input';
 
 export default function LoginButton(props: any) {
   const [modalOpen, setModalOpen] = useState(false);
-
   const openModal = useCallback(() => setModalOpen(true), []);
   const closeModal = useCallback(() => setModalOpen(false), []);
 
   return (
     <>
-      {/* Floating Login Button */}
       <Button
         variant={'outline'}
         className={`${props.className} text-xs cursor-pointer bg-accent-strong hover:bg-accent-strong/90 text-white border-accent-strong`}
-        onClick={openModal} // ✅ setTimeout hata diya
+        onClick={openModal}
       >
         <User2 className='mr-2 h-4 w-4' /> Login
       </Button>
-
-      {/* Login Modal */}
       <LoginModal open={modalOpen} onClose={closeModal} />
     </>
   );
@@ -37,67 +36,66 @@ const LoginModal = React.memo(function LoginModal({
   open: boolean;
   onClose: () => void;
 }) {
-  const modalRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement | null>(null);
+  const firstInputRef = useRef<HTMLInputElement | null>(null);
+  const { toggleSidebar } = useSidebar();
+  const isMobile = useIsMobile();
+
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    username: '',
-    rememberMe: false,
+
+  // ✅ React Hook Form Setup
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      username: '',
+      rememberMe: false,
+    },
   });
 
-  // Delay rendering until client-side mount (for SSR safety)
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     if (!open) return;
-
     const el = modalRef.current;
     el?.focus();
 
-    // Lock background scroll
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    setTimeout(() => {
+      if (firstInputRef.current) firstInputRef.current.focus();
+      else modalRef.current?.focus();
+    }, 50);
 
     return () => {
       document.body.style.overflow = prevOverflow;
     };
   }, [open]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: any) => {
     setLoading(true);
-
     try {
-      //   const { data, error } = await authClient.signIn.email({
-      //     email: formData.email,
-      //     password: formData.password,
-      //     rememberMe: formData.rememberMe,
-      //   });
-
-      const result = await signIn(formData.email, formData.password, formData.rememberMe);
-
-      //   if (error) {
-      //     toast.error(error.message || 'Login failed');
-      //     return;
-      //   }
-
-      toast.success('Login successful!');
-      onClose();
-      window.location.reload();
+      if (activeTab === 'login') {
+        await signIn(data.email, data.password, data.rememberMe);
+        toast.success('Login successful!');
+        onClose();
+        window.location.reload();
+      } else {
+        await signUp(data.email, data.password, data.firstName, data.lastName, data.username);
+        toast.success('Account created successfully! Please check your email for verification.');
+        onClose();
+      }
     } catch (error) {
       toast.error('An unexpected error occurred');
     } finally {
@@ -105,50 +103,15 @@ const LoginModal = React.memo(function LoginModal({
     }
   };
 
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      //   const { data, error } = await authClient.signUp.email({
-      //     email: formData.email,
-      //     password: formData.password,
-      //     name: `${formData.firstName} ${formData.lastName}`.trim(),
-      //   });
-
-      //   if (error) {
-      //     toast.error(error.message || 'Sign up failed');
-      //     return;
-      //   }
-
-      const result = await signUp(
-        formData.email,
-        formData.password,
-        formData.firstName,
-        formData.lastName,
-        formData.username
-      );
-
-      toast.success('Account created successfully! Please check your email for verification.');
-      onClose();
-    } catch (error) {
-      toast.error('An unexpected error occurred');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
+  const togglePasswordVisibility = () => setShowPassword((s) => !s);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
+      if (isMobile) return;
       if (e.key === 'Escape') {
         e.stopPropagation();
         onClose();
       }
-
       if (e.key === 'Tab') {
         const focusable = modalRef.current?.querySelectorAll<HTMLElement>(
           'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
@@ -166,60 +129,40 @@ const LoginModal = React.memo(function LoginModal({
         }
       }
     },
-    [onClose]
+    [isMobile, onClose]
   );
-
-  const resetForm = () => {
-    setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      rememberMe: false,
-      username: '',
-    });
-  };
 
   const handleTabChange = (tab: 'login' | 'signup') => {
     setActiveTab(tab);
-    resetForm();
+    reset();
   };
 
-  // ✅ Click outside to close
   const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
+    if (e.target === e.currentTarget) onClose();
   };
 
   if (!mounted || !open) return null;
 
   return createPortal(
     <>
-      {/* Overlay - Fixed z-index */}
       <div
         className='fixed inset-0 bg-black/60 backdrop-blur-sm z-[9998] transition-opacity'
         onClick={handleOverlayClick}
         aria-hidden='true'
       />
-
-      {/* Dialog - Higher z-index */}
       <div
         role='dialog'
         aria-modal='true'
-        aria-labelledby='login-modal-title'
         className='fixed inset-0 z-[9999] flex items-center justify-center p-4 overflow-y-auto'
         onKeyDown={handleKeyDown}
-        onClick={handleOverlayClick} // ✅ Overlay click handler
       >
         <div
           ref={modalRef}
           tabIndex={-1}
-          onClick={(e) => e.stopPropagation()} // ✅ Stop propagation
+          onClick={(e) => e.stopPropagation()}
           className='relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-2xl focus:outline-none max-h-[90vh] overflow-auto animate-in fade-in slide-in-from-bottom-4 duration-200'
-          style={{ pointerEvents: 'auto' }} // ✅ Ensure click events work
+          style={{ pointerEvents: 'auto' }}
         >
-          {/* Close Button */}
           <button
             onClick={onClose}
             aria-label='Close login form'
@@ -228,20 +171,13 @@ const LoginModal = React.memo(function LoginModal({
             <X className='w-5 h-5' aria-hidden='true' />
           </button>
 
-          {/* Header */}
           <div className='text-center mb-6'>
-            <h2
-              id='login-modal-title'
-              className='text-2xl font-bold text-gray-900 dark:text-white mb-2'
-            >
-              Welcome Back
-            </h2>
+            <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-2'>Welcome Back</h2>
             <p className='text-sm text-gray-600 dark:text-gray-400'>
               {activeTab === 'login' ? 'Sign in to your account' : 'Create your account'}
             </p>
           </div>
 
-          {/* Tabs */}
           <div className='flex border-b border-gray-200 dark:border-gray-700 mb-6'>
             <button
               type='button'
@@ -267,10 +203,9 @@ const LoginModal = React.memo(function LoginModal({
             </button>
           </div>
 
-          {/* Form */}
-          <form onSubmit={activeTab === 'login' ? handleLogin : handleSignUp} className='space-y-4'>
+          <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 z-50'>
             {activeTab === 'signup' && (
-              <div className='grid grid-cols-2 gap-4'>
+              <div className='grid grid-cols-2 gap-4 z-50'>
                 <div>
                   <label
                     htmlFor='firstName'
@@ -278,13 +213,10 @@ const LoginModal = React.memo(function LoginModal({
                   >
                     First Name
                   </label>
-                  <input
+                  <Input
                     id='firstName'
-                    name='firstName'
                     type='text'
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required={activeTab === 'signup'}
+                    {...register('firstName', { required: activeTab === 'signup' })}
                     className='w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:border-accent-strong focus:ring-2 focus:ring-accent-strong/20 transition-colors'
                     placeholder='John'
                   />
@@ -296,13 +228,10 @@ const LoginModal = React.memo(function LoginModal({
                   >
                     Last Name
                   </label>
-                  <input
+                  <Input
                     id='lastName'
-                    name='lastName'
                     type='text'
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required={activeTab === 'signup'}
+                    {...register('lastName', { required: activeTab === 'signup' })}
                     className='w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:border-accent-strong focus:ring-2 focus:ring-accent-strong/20 transition-colors'
                     placeholder='Doe'
                   />
@@ -319,13 +248,12 @@ const LoginModal = React.memo(function LoginModal({
               </label>
               <div className='relative'>
                 <Mail className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
-                <input
+                <Input
+                  //   ref={firstInputRef}
                   id='email'
-                  name='email'
                   type='email'
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
+                  autoComplete='email'
+                  {...register('email', { required: true })}
                   className='w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 pl-10 pr-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:border-accent-strong focus:ring-2 focus:ring-accent-strong/20 transition-colors'
                   placeholder='you@example.com'
                 />
@@ -341,13 +269,10 @@ const LoginModal = React.memo(function LoginModal({
               </label>
               <div className='relative'>
                 <Lock className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4' />
-                <input
+                <Input
                   id='password'
-                  name='password'
                   type={showPassword ? 'text' : 'password'}
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
+                  {...register('password', { required: true })}
                   className='w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 pl-10 pr-10 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:border-accent-strong focus:ring-2 focus:ring-accent-strong/20 transition-colors'
                   placeholder='Enter your password'
                 />
@@ -364,12 +289,10 @@ const LoginModal = React.memo(function LoginModal({
             {activeTab === 'login' && (
               <div className='flex items-center justify-between'>
                 <label className='flex items-center text-sm text-gray-700 dark:text-gray-300'>
-                  <input
+                  <Input
                     type='checkbox'
-                    name='rememberMe'
-                    checked={formData.rememberMe}
-                    onChange={handleInputChange}
-                    className='rounded border-gray-300 text-accent-strong focus:ring-accent-strong'
+                    {...register('rememberMe')}
+                    className='size-4 rounded border-gray-300 text-accent-strong focus:ring-accent-strong'
                   />
                   <span className='ml-2'>Remember me</span>
                 </label>
@@ -400,7 +323,6 @@ const LoginModal = React.memo(function LoginModal({
             </Button>
           </form>
 
-          {/* Footer */}
           <div className='mt-6 text-center'>
             <p className='text-sm text-gray-600 dark:text-gray-400'>
               {activeTab === 'login' ? "Don't have an account? " : 'Already have an account? '}
@@ -419,3 +341,5 @@ const LoginModal = React.memo(function LoginModal({
     document.body
   );
 });
+
+export { LoginButton, LoginModal };

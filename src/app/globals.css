@@ -180,6 +180,11 @@
   body {
     @apply bg-background overflow-x-hidden text-foreground;
   }
+  /* .sm\:max-w-sm {
+    @media (width >= 40rem) {
+      max-width: var(--container-sm);
+    }
+  } */
   .container {
     @apply px-4 md:px-8 lg:px-16 mx-auto max-w-7xl;
   }

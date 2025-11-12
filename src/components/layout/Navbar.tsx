@@ -1,8 +1,8 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SidebarTrigger } from '../ui/sidebar';
-import { BookOpenText, FileText, ClipboardList, Lightbulb, User2 } from 'lucide-react';
+import { SidebarMenuButton, SidebarTrigger } from '../ui/sidebar';
+import { BookOpenText, FileText, ClipboardList, Lightbulb, User2, ChevronUp } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
@@ -41,19 +41,19 @@ export default function Navbar() {
   return (
     <header className='w-full flex justify-between items-center p-2 bg-yellow-500 shadow-sm sticky top-0'>
       {/* Logo */}
-      <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-2'>
+      <div onClick={() => router.push('/')} className='cursor-pointer flex items-center'>
         <Image
           src='/logo/leaders-coaching-center-logo.png'
           alt='Leaders Coaching Center'
-          className='size-14'
+          className='size-24'
           loading='eager'
           width={9000}
           height={9000}
         />
         <h1 className='flex flex-col font-semibold  text-accent-strong'>
-          <span className='text-xl tracking-widest'>Leaders </span>
+          <span className='text-2xl tracking-widest'>Leaders </span>
 
-          <span className='text-xs tracking-tight'>Coaching Center</span>
+          <span className='text-sm tracking-tight'>Coaching Center</span>
         </h1>
       </div>
 
@@ -79,24 +79,53 @@ export default function Navbar() {
           {classes.map((cls) => (
             <CustomSelect key={cls.slug} cls={cls} />
           ))}
-          {user ? (
-            <Image
-              src='/logo/leaders-coaching-center-logo.png'
-              alt='Leaders Coaching Center'
-              className='size-8 rounded-full'
-              loading='eager'
-              width={9000}
-              height={9000}
-            />
-          ) : (
-            <LoginButton />
-          )}
+          <div className='p-2'>
+            {user ? (
+              (user as any)?.profilePic ? (
+                <Image
+                  src={(user as any)?.profilePic}
+                  alt='Leaders Coaching Center'
+                  className='size-8 rounded-full'
+                  loading='eager'
+                  width={9000}
+                  height={9000}
+                />
+              ) : (
+                <User2 className='border border-black rounded-full size-8 p-2' />
+              )
+            ) : (
+              <LoginButton />
+            )}
+          </div>
         </div>
       </div>
 
       {/* Mobile Sidebar */}
-      <div className='flex  xl:hidden'>
-        <SidebarTrigger />
+      <div className='p-2 h-full flex flex-col items-end justify-between xl:hidden'>
+        {user ? (
+          <>
+            {(user as any)?.profilePic ? (
+              <Image
+                src={(user as any)?.profilePic}
+                alt='Leaders Coaching Center'
+                className='size-8 rounded-full'
+                loading='eager'
+                width={9000}
+                height={9000}
+              />
+            ) : (
+              <>
+                <User2 className='border border-black rounded-full size-8 p-2' />
+                <SidebarTrigger size={'lg'} className='justify-self-end' />
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <SidebarTrigger size={'lg'} className='justify-self-end' />
+            <LoginButton className='w-full' />
+          </>
+        )}
       </div>
     </header>
   );
