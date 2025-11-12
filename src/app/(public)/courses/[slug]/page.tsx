@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!response.ok) throw new Error('Failed to fetch courses for metadata');
 
   const data = await response.json();
-  const course = data.courses.find((course: any) => course.slug === slug);
+  const course = data.data.courses.find((course: any) => course.slug === slug);
 
   if (course)
     return {
@@ -60,7 +60,7 @@ export async function generateStaticParams({ params }: { params: Promise<{ slug:
     }
     const data = await response.json();
 
-    return data.courses.map((course: any) => ({
+    return data.data.courses?.map((course: any) => ({
       slug: course.slug,
     }));
   } catch (error) {
