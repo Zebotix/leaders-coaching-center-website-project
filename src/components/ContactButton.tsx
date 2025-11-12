@@ -16,7 +16,7 @@ export default function ContactButton() {
       {/* Floating Contact Button */}
       <Button
         onClick={openModal}
-        className='z-50 fixed bottom-8 right-8 bg-accent-strong hover:bg-accent-strong/90 text-white rounded-full size-8 sm:size-10 flex items-center justify-center shadow-lg focus:outline-none focus:ring-4 focus:ring-accent-strong/40 transition-all duration-200'
+        className='z-50 fixed bottom-8 right-8 bg-accent-strong hover:bg-accent-strong/90 text-white rounded-full size-8 sm:size-10 flex items-center justify-center shadow-lg focus:outline-none focus:ring-4 focus:ring-accent-strong/40 transition-all duration-200 cursor-pointer'
         aria-label='Contact us'
       >
         <Mail className='sm:scale-125' aria-hidden='true' />

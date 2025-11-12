@@ -113,7 +113,7 @@ export default function RootLayout({
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`modal-scroll ${merriweather.className} ${inter.className} tracking-wider min-h-screen w-screen overflow-x-hidden antialiased`}
+        className={`modal-scroll ${merriweather.className} ${inter.className} tracking-wider min-h-screen antialiased`}
       >
         {children}
       </body>

@@ -30,7 +30,7 @@ export default function OurExpperts() {
     },
   ];
   return (
-    <section className='min-h-fit px-6 shadow-sm py-16 bg-linear-to-b from-blue-50 to-white'>
+    <section className='overflow-x-hidden min-h-fit px-6 shadow-sm py-16 bg-linear-to-b from-blue-50 to-white'>
       <h2 className='text-3xl font-bold mb-4'>Our Experts</h2>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
         {experts.map((expert) => (

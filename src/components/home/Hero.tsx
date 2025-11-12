@@ -3,7 +3,7 @@ import DashboardCarousel from '../DashboardCarousel';
 
 export default function Hero() {
   return (
-    <section className='shadow-sm pb-4'>
+    <section className='overflow-x-hidden shadow-sm pb-4'>
       <DashboardCarousel />
     </section>
   );

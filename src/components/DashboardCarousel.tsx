@@ -44,7 +44,7 @@ export default function DashboardCarousel() {
   ];
 
   return (
-    <div className='w-full flex justify-center'>
+    <div className='overflow-x-hidden w-full flex justify-center'>
       <Carousel
         className='w-full max-w-8xl rounded-xl overflow-hidden shadow-lg relative group'
         plugins={[autoplay.current]}

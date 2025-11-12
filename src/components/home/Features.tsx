@@ -30,7 +30,7 @@ export default function WhatLeadersCoachingCenterProvides() {
   ];
 
   return (
-    <section className='shadow-sm py-16 bg-linear-to-b from-blue-50 to-white'>
+    <section className='overflow-x-hidden shadow-sm py-16 bg-linear-to-b from-blue-50 to-white'>
       <div className='max-w-6xl mx-auto px-6 text-center'>
         <h2 className='text-3xl md:text-4xl font-merriweather font-bold text-gray-900 mb-6 text-left sm:text-center'>
           What <span className='text-blue-600'>Leaders Coaching Center</span> Provides

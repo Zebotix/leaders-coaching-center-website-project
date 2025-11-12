@@ -11,7 +11,7 @@ export default async function PublicLayout({ children }: { children: React.React
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
   return (
-    <main>
+    <main className='container'>
       <ThemeProvider attribute='data-theme' defaultTheme='system' enableSystem={true}>
         <SidebarProvider
           className='overflow-hidden'
@@ -27,7 +27,6 @@ export default async function PublicLayout({ children }: { children: React.React
             <Navbar />
             {children}
             <ContactButton />
-
             <Footer />
           </div>
           <AppSidebar />

@@ -63,22 +63,22 @@
 }
 
 /* Named theme that matches your image */
-/* [data-theme='leaders'] {
+[data-theme='leaders'] {
   --color-primary: #2b1f6a;
   --color-accent-strong: #2b1f6a;
   --color-secondary: #ffe200;
   --color-bg: #ffffff;
   --color-neutral: #ffffff;
   --color-muted: #4f4b63;
-} */
+}
 
 /* Dark theme */
-/* [data-theme='dark'] {
+[data-theme='dark'] {
   --color-bg: #0b1020;
   --color-surface: #0f1724;
   --color-primary: #8b5cf6;
   --color-muted: #9aa0b4;
-} */
+}
 
 @theme inline {
   /* Radius scale */
@@ -175,11 +175,14 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    box-sizing: border-box;
   }
   body {
-    @apply bg-background text-foreground px-4 md:px-8 lg:px-16;
+    @apply bg-background overflow-x-hidden text-foreground;
   }
-
+  .container {
+    @apply px-4 md:px-8 lg:px-16 mx-auto max-w-7xl;
+  }
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
@@ -466,7 +469,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground overflow-x-hidden;
   }
 }
 
@@ -474,7 +477,7 @@
   --sb-track: #ffd600; /* track */
   --sb-thumb: #2b1f6a; /* thumb (zebotix-blue) */
   --sb-thumb-hover: #2b1f6ad0; /* hover */
-  --sb-width: 12px; /* width of scrollbar */
+  --sb-width: 8px; /* width of scrollbar */
 }
 
 /* Apply to your modal panel (class .modal-scroll) */

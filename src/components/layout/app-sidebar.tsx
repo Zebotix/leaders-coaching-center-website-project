@@ -33,9 +33,10 @@ import {
 } from '../ui/dropdown-menu';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import LoginButton from '../LoginButton';
 
 export function AppSidebar() {
-  const { isMobile, toggleSidebar } = useSidebar();
+  const { isMobile, toggleSidebar, setOpenMobile } = useSidebar();
   const user = false;
   const router = useRouter();
 
@@ -68,7 +69,7 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar>
+    <Sidebar className='z-10'>
       <SidebarHeader>
         <SidebarGroupLabel className='relative'>
           <span
@@ -160,11 +161,7 @@ export function AppSidebar() {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <>
-                <SidebarMenuButton className='bg-gray-200 w-full'>
-                  <User2 /> Login
-                </SidebarMenuButton>
-              </>
+              <LoginButton className='w-full' />
             )}
           </SidebarMenuItem>
         </SidebarMenu>

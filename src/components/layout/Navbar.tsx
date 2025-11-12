@@ -7,6 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import LoginButton from '../LoginButton';
 
 const classes = [
   { name: '9th Class', slug: '9th-class' },
@@ -38,7 +39,7 @@ export default function Navbar() {
 
   const user = false;
   return (
-    <header className='w-full flex justify-between items-center p-2 bg-yellow-500 shadow-sm sticky top-0 z-50'>
+    <header className='w-full flex justify-between items-center p-2 bg-yellow-500 shadow-sm sticky top-0'>
       {/* Logo */}
       <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-2'>
         <Image
@@ -88,9 +89,7 @@ export default function Navbar() {
               height={9000}
             />
           ) : (
-            <Button variant={'outline'} className='text-xs'>
-              <User2 className='mr-2 h-4 w-4' /> Login
-            </Button>
+            <LoginButton />
           )}
         </div>
       </div>
