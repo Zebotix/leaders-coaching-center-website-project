@@ -1,3 +1,4 @@
+import FAQComponent from '@/components/faqs';
 import WhatLeadersCoachingCenterProvides from '@/components/home/Features';
 import Hero from '@/components/home/Hero';
 import OurExpperts from '@/components/home/OurExpperts';
@@ -11,6 +12,7 @@ export default function Home() {
       <PopularCourses />
       <OurExpperts />
       <WhatLeadersCoachingCenterProvides />
+      <FAQComponent />
     </section>
   );
 }

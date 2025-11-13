@@ -130,7 +130,10 @@ export default function Navbar({
               />
             ) : (
               <>
-                <User2 className='text-white border border-white rounded-full size-8 p-2' />
+                <UserButton
+                  signOut={signOut}
+                  className=' cursor-pointer text-white border border-white rounded-full size-8 p-2'
+                />
                 <SidebarTrigger size={'lg'} className='justify-self-end' />
               </>
             )}

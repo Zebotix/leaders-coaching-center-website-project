@@ -37,7 +37,7 @@ import LoginButton from '../LoginButton';
 
 export function AppSidebar() {
   const { isMobile, toggleSidebar, setOpenMobile } = useSidebar();
-  const user = false;
+
   const router = useRouter();
 
   if (!isMobile) return null;
@@ -62,10 +62,7 @@ export function AppSidebar() {
     { label: 'Home', path: '/', Icon: Home },
     { label: 'About', path: '/about', Icon: Building },
     { label: 'Contact', path: '/contact', Icon: Contact },
-    { label: 'FAQs', path: '/faqs', Icon: ListOrdered },
-    { label: 'Exams', path: '/exams', Icon: School },
     { label: 'courses', path: '/courses', Icon: Book },
-    { label: 'feed', path: '/posts', Icon: MessageCircleMore },
   ];
 
   return (

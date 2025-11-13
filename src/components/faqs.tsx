@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { FAQs } from '@/lib/generated/prisma/client';
-export default async function faqs() {
+export default async function FAQComponent() {
   const faqs = (await getFaqs()) as FAQs[];
   return (
     <Accordion type='single' collapsible className='w-full' defaultValue='item-1'>
