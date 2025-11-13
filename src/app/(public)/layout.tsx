@@ -2,14 +2,31 @@ import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import Navbar from '@/components/layout/Navbar';
 import React from 'react';
 import { AppSidebar } from '@/components/layout/app-sidebar';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { ThemeProvider } from '@/components/theme-provider';
 import Footer from '@/components/layout/Footer';
 import ContactButton from '@/components/ContactButton';
+import { getSessionCookie } from 'better-auth/cookies';
+import { NextRequest } from 'next/server';
+import { auth } from '@/lib/auth';
 
-export default async function PublicLayout({ children }: { children: React.ReactNode }) {
+export default async function PublicLayout(
+  { children }: { children: React.ReactNode },
+  request: NextRequest
+) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
+
+  const session = await auth.api.getSession({
+    headers: await headers(), // you need to pass the headers object.
+  });
+  async function signOut() {
+    'use server';
+    await auth.api.signOut({
+      headers: await headers(),
+    });
+  }
+  console.log('user session', session);
   return (
     <main className='container'>
       <ThemeProvider attribute='data-theme' defaultTheme='system' enableSystem={true}>
@@ -24,7 +41,7 @@ export default async function PublicLayout({ children }: { children: React.React
           defaultOpen={defaultOpen}
         >
           <div className='w-screen flex min-h-screen flex-col'>
-            <Navbar />
+            <Navbar user={session?.user!} signOut={signOut} />
             {children}
             <ContactButton />
             <Footer />

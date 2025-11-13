@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function Home() {
   return (
-    <section className='overflow-x-hidden py-4'>
+    <section className='overflow-x-hidden py-2'>
       <Hero />
       <PopularCourses />
       <OurExpperts />

@@ -8,6 +8,7 @@ import { Button } from '../ui/button';
 import { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 import LoginButton from '../LoginButton';
+import UserButton from '../UserButton';
 
 const classes = [
   { name: '9th Class', slug: '9th-class' },
@@ -27,30 +28,41 @@ const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'About', path: '/about' },
   { label: 'Contact', path: '/contact' },
-  { label: 'FAQs', path: '/faqs' },
-  { label: 'Exams', path: '/exams' },
   { label: 'courses', path: '/courses' },
-  { label: 'feed', path: '/posts' },
 ];
 
-export default function Navbar() {
+export default function Navbar({
+  user,
+  signOut,
+}: {
+  user: {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    email: string;
+    emailVerified: boolean;
+    name: string;
+    image?: string | null | undefined | undefined;
+  };
+  signOut: () => void;
+}) {
   const router = useRouter();
   const pathName = usePathname();
 
-  const user = false;
   return (
-    <header className='w-full flex justify-between items-center p-2 bg-yellow-500 shadow-sm sticky top-0'>
+    <header className='w-full flex justify-between items-center p-2 bg-accent-strong shadow-sm sticky top-0 z-50'>
       {/* Logo */}
-      <div onClick={() => router.push('/')} className='cursor-pointer flex items-center'>
+      <div onClick={() => router.push('/')} className='cursor-pointer flex items-center gap-1'>
+        <div className='relative w-20 h-28 bg-white rounded-b-full'></div>
         <Image
           src='/logo/leaders-coaching-center-logo.png'
           alt='Leaders Coaching Center'
-          className='size-24'
+          className='absolute top-6 size-20'
           loading='eager'
           width={9000}
           height={9000}
         />
-        <h1 className='flex flex-col font-semibold  text-accent-strong'>
+        <h1 className='flex flex-col font-semibold  text-white'>
           <span className='text-2xl tracking-widest'>Leaders </span>
 
           <span className='text-sm tracking-tight'>Coaching Center</span>
@@ -59,23 +71,23 @@ export default function Navbar() {
 
       {/* Dropdown Menus */}
       <div className='hidden xl:flex flex-col gap-2'>
-        <div className='place-self-end flex justify-between w-full'>
+        <div className='text-gray-300 place-self-end flex justify-between w-full'>
           {navLinks.map(({ label, path }) => (
             <Link
               key={label}
               href={path}
               className={
-                'p-2  text-sm text-gray-700' +
+                'p-2  text-sm text-gray-100' +
                 (pathName === path || pathName?.startsWith(path + '/')
                   ? ' font-extrabold border-b-2 border-blue-600'
-                  : 'font-medium hover:text-gray-900')
+                  : 'font-medium hover:text-gray-200')
               }
             >
               {label}
             </Link>
           ))}
         </div>
-        <div className='flex items-center gap-8'>
+        <div className='flex items-center gap-8 '>
           {classes.map((cls) => (
             <CustomSelect key={cls.slug} cls={cls} />
           ))}
@@ -91,7 +103,10 @@ export default function Navbar() {
                   height={9000}
                 />
               ) : (
-                <User2 className='border border-black rounded-full size-8 p-2' />
+                <UserButton
+                  signOut={signOut}
+                  className=' cursor-pointer text-white border border-white rounded-full size-8 p-2'
+                />
               )
             ) : (
               <LoginButton />
@@ -115,7 +130,7 @@ export default function Navbar() {
               />
             ) : (
               <>
-                <User2 className='border border-black rounded-full size-8 p-2' />
+                <User2 className='text-white border border-white rounded-full size-8 p-2' />
                 <SidebarTrigger size={'lg'} className='justify-self-end' />
               </>
             )}

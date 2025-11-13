@@ -64,3 +64,13 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel
+/**
+ * Model FAQs
+ * 
+ */
+export type FAQs = Prisma.FAQsModel

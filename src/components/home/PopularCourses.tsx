@@ -41,7 +41,7 @@ export default async function PopularCourses() {
     const data = await response.json();
     console.log('Courses data received:', data);
 
-    const courses = [];
+    const courses: any = [];
     // data.data.popularCourses ||
     return <CoursesSection courses={courses} />;
   } catch (error) {

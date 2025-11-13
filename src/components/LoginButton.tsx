@@ -19,7 +19,7 @@ export default function LoginButton(props: any) {
     <>
       <Button
         variant={'outline'}
-        className={`${props.className} text-xs cursor-pointer bg-accent-strong hover:bg-accent-strong/90 text-white border-accent-strong`}
+        className={`${props.className} text-xs cursor-pointer bg-yellow-500 hover:bg-yellow-500/90 text-black hover:text-white border-yellow-500`}
         onClick={openModal}
       >
         <User2 className='mr-2 h-4 w-4' /> Login
@@ -99,6 +99,7 @@ const LoginModal = React.memo(function LoginModal({
     } catch (error) {
       toast.error('An unexpected error occurred');
     } finally {
+      window.location.reload();
       setLoading(false);
     }
   };

@@ -207,7 +207,7 @@ const ContactModal = React.memo(function ContactModal({
             <div className='flex justify-center'>
               <Button
                 type='submit'
-                className='bg-indigo-500 hover:bg-accent-strong/90 transition-colors'
+                className='text-black bg-yellow-500 hover:bg-yellow-500/90 transition-colors'
               >
                 {loading ? 'Sending...' : 'Send Message'}
               </Button>

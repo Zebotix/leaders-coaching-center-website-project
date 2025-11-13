@@ -136,7 +136,7 @@ export default function ContactForm({ contact }: { contact: Contact }) {
       <div className='flex items-center gap-3'>
         <button
           type='submit'
-          className='inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-md px-4 py-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-300'
+          className='inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-md px-4 py-2 font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-300'
           aria-disabled={status === 'sending'}
           disabled={status === 'sending'}
         >
