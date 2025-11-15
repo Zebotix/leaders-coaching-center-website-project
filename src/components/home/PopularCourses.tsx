@@ -4,7 +4,7 @@ import { Badge } from '../ui/badge';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getCourses } from '@/lib/server-actions/courses';
+// import { getCourses } from '@/lib/server-actions/courses';
 
 export default async function PopularCourses() {
   try {
@@ -35,7 +35,7 @@ export default async function PopularCourses() {
     // const data = await response.json();
     // console.log('Courses data received:', data);
 
-    const res = await getCourses();
+    // const res = await getCourses();
     // if (!res.success) {
     //   return {
     //     title: 'Course Details',
