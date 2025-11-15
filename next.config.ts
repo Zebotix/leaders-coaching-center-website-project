@@ -9,9 +9,12 @@ const nextConfig: NextConfig = {
         test: /(@prisma\/extension-optimize|prisma-instrumentation-5-x|@opentelemetry)/,
         use: 'null-loader',
       });
+      config.externals.push('_http_common');
     }
+
     return config;
   },
+  serverExternalPackages: ['@prisma/client'],
   allowedDevOrigins: ['*.app.github.dev', '*.devtunnels.ms'],
   experimental: {
     globalNotFound: true,

@@ -4,42 +4,44 @@ import { Badge } from '../ui/badge';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getCourses } from '@/lib/server-actions/courses';
 
 export default async function PopularCourses() {
-  // ✅ Temporary fallback - API fix hone tak
-  const showFallback = true;
-
-  //   if (showFallback) {
-  //     return <CoursesFallback />;
-  //   }
-
   try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL!;
+    // const apiUrl = process.env.NEXT_PUBLIC_API_URL!;
 
-    // ✅ Check if API URL is available
-    if (!apiUrl) {
-      console.warn('NEXT_PUBLIC_API_URL is not defined');
-      return <CoursesFallback />;
-    }
+    // // ✅ Check if API URL is available
+    // if (!apiUrl) {
+    //   console.warn('NEXT_PUBLIC_API_URL is not defined');
+    //   return <CoursesFallback />;
+    // }
 
-    console.log('Fetching from:', `${apiUrl}/courses`);
+    // console.log('Fetching from:', `${apiUrl}/courses`);
 
-    const response = await fetch(`${apiUrl}/courses`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      next: {
-        revalidate: 60,
-      },
-    });
+    // const response = await fetch(`${apiUrl}/courses`, {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   next: {
+    //     revalidate: 60,
+    //   },
+    // });
 
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`);
+    // }
 
-    const data = await response.json();
-    console.log('Courses data received:', data);
+    // const data = await response.json();
+    // console.log('Courses data received:', data);
+
+    const res = await getCourses();
+    // if (!res.success) {
+    //   return {
+    //     title: 'Course Details',
+    //     description: 'Course information',
+    //   };
+    // }
 
     const courses: any = [];
     // data.data.popularCourses ||

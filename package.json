@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run prisma:migrate && npm run prisma:generate && next dev --turbo",
-    "build": "npm run prisma:migrate && npm run prisma:generate && next build",
+    "dev": "next dev --turbo",
+    "build": "node scripts/ensure-prisma.js && next build",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "prisma:generate": "npx prisma generate --schema=./prisma/schema.prisma",
-    "prisma:migrate": "npx prisma migrate dev --schema=./prisma/schema.prisma"
+    "prisma:generate": "prisma generate --schema=./prisma/schema.prisma",
+    "prisma:migrate": "prisma migrate dev --schema=./prisma/schema.prisma",
+    "prisma:studio": "prisma studio --schema=./prisma/schema.prisma",
+    "postinstall": "prisma generate --schema=./prisma/schema.prisma",
+    "vercel-build": "prisma generate && prisma db push && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

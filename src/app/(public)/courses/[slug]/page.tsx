@@ -1,35 +1,27 @@
-import React from 'react';
+import { getCourses } from '@/lib/server-actions/courses';
 
+// -------------------------
+// Metadata (NO fetch needed)
+// -------------------------
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const slug = (await params).slug;
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    // Add revalidation if needed
-    next: {
-      revalidate: 60, // Revalidate every 60 seconds
-      // or use tags: ['courses']
-    },
-  });
+  const { slug } = await params;
 
-  if (!response.ok) throw new Error('Failed to fetch courses for metadata');
+  const res = await getCourses();
+  if (!res.success) {
+    return {
+      title: 'Course Details',
+      description: 'Course information',
+    };
+  }
 
-  const data = await response.json();
-  const course = data.data.courses.find((course: any) => course.slug === slug);
+  const course = res?.data?.courses.find((c: any) => c.slug === slug);
 
-  if (course)
+  if (course) {
     return {
       title: course.title,
       description: course.description,
     };
-
-  if (!course)
-    return {
-      title: `Course - ${slug}`,
-      description: `Details and information about the course: ${slug}`,
-    };
+  }
 
   return {
     title: `Course - ${slug}`,
@@ -37,34 +29,41 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function CourseSlug({ params }: { params: Promise<{ slug: string }> }) {
-  const slug = (await params).slug;
-  return <div>CourseSlug</div>;
+// -------------------------
+// Static Params (No fetch)
+// -------------------------
+export async function generateStaticParams() {
+  const res = await getCourses();
+
+  if (!res.success || !res.data?.courses) return [];
+
+  return res.data.courses.map((course: any) => ({
+    slug: course.slug,
+  }));
 }
 
-export async function generateStaticParams({ params }: { params: Promise<{ slug: string }> }) {
-  try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/courses`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // Add revalidation if needed
-      next: {
-        revalidate: 60, // Revalidate every 60 seconds
-        // or use tags: ['courses']
-      },
-    });
-    if (!response.ok) {
-      throw new Error('Failed to fetch courses for static params');
-    }
-    const data = await response.json();
+// -------------------------
+// Page Component
+// -------------------------
+export default async function CourseSlugPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
-    return data.data.courses?.map((course: any) => ({
-      slug: course.slug,
-    }));
-  } catch (error) {
-    console.error('Failed to generate static params:', error);
-    return [];
+  const res = await getCourses();
+  const course = res?.data?.courses.find((c: any) => c.slug === slug);
+
+  if (!course) {
+    return <div className='p-6'>Course not found.</div>;
   }
+
+  return (
+    <div className='p-6'>
+      <h1 className='text-xl font-bold'>{course.title}</h1>
+      <p className='mt-2 text-gray-700'>{course.description}</p>
+
+      <div className='mt-4'>
+        <p>Instructor: {course.instructor}</p>
+        <p>Price: ${course.price}</p>
+      </div>
+    </div>
+  );
 }
