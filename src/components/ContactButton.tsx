@@ -219,6 +219,7 @@ const ContactModal = React.memo(function ContactModal({
               Crafted with ❤️ by{' '}
               <a
                 href='https://www.zebotix.com'
+                target='_blank'
                 className='text-white font-semibold hover:text-indigo-500 transition'
               >
                 Zebotix
