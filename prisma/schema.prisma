@@ -21,17 +21,17 @@ enum Role {
 }
 
 model User {
-    id            String    @id
+    id            String     @id
     name          String
     email         String
-    emailVerified Boolean   @default(false)
-    role          Role      @default(USER)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @default(now()) @updatedAt
+    emailVerified Boolean    @default(false)
+    role          Role       @default(USER)
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @default(now()) @updatedAt
     sessions      Session[]
     accounts      Account[]
     file          File[]
-    faqs          FAQs[]
+    resources     Resource[]
 
     @@unique([email])
     @@map("user")
@@ -83,24 +83,32 @@ model Verification {
 }
 
 model File {
-    id        String   @id
-    userId    String
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    fileName  String
-    filePath  String
-    mimeType  String?
-    size      Int?
-    metadata  Json?
+    id String @id
+
+    fileName String
+    filePath String
+    mimeType String?
+    size     Int?
+    metadata Json?
+
+    userId     String
+    uploadedBy User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    resourceId String?
+    resource   Resource? @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now())
 }
 
-model FAQs {
-    id        String   @id
-    userId    String
-    user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    question  String
-    answer    String
+model Resource {
+    id          String @id
+    userId      String
+    uploadBy    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    description String
+    category    String
+
+    files File[]
+
     metadata  Json?
     createdAt DateTime @default(now())
     updatedAt DateTime @default(now())

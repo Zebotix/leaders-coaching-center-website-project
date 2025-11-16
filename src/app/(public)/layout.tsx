@@ -16,17 +16,11 @@ export default async function PublicLayout(
 ) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
-
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
   });
-  async function signOut() {
-    'use server';
-    await auth.api.signOut({
-      headers: await headers(),
-    });
-  }
-  console.log('user session', session);
+
+  //   console.log('user session', session);
   return (
     <main className='container'>
       <ThemeProvider attribute='data-theme' defaultTheme='system' enableSystem={true}>
@@ -41,7 +35,7 @@ export default async function PublicLayout(
           defaultOpen={defaultOpen}
         >
           <div className='w-screen flex min-h-screen flex-col'>
-            <Navbar user={session?.user!} signOut={signOut} />
+            <Navbar user={session?.user} />
             {children}
             <ContactButton />
             <Footer />

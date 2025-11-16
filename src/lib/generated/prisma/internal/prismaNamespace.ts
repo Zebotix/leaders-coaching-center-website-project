@@ -395,7 +395,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   File: 'File',
-  FAQs: 'FAQs'
+  Resource: 'Resource'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "file" | "fAQs"
+    modelProps: "user" | "session" | "account" | "verification" | "file" | "resource"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -785,77 +785,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    FAQs: {
-      payload: Prisma.$FAQsPayload<ExtArgs>
-      fields: Prisma.FAQsFieldRefs
+    Resource: {
+      payload: Prisma.$ResourcePayload<ExtArgs>
+      fields: Prisma.ResourceFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.FAQsFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload> | null
+          args: Prisma.ResourceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.FAQsFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>
+          args: Prisma.ResourceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>
         }
         findFirst: {
-          args: Prisma.FAQsFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload> | null
+          args: Prisma.ResourceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.FAQsFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>
+          args: Prisma.ResourceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>
         }
         findMany: {
-          args: Prisma.FAQsFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>[]
+          args: Prisma.ResourceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>[]
         }
         create: {
-          args: Prisma.FAQsCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>
+          args: Prisma.ResourceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>
         }
         createMany: {
-          args: Prisma.FAQsCreateManyArgs<ExtArgs>
+          args: Prisma.ResourceCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.FAQsCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>[]
+          args: Prisma.ResourceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>[]
         }
         delete: {
-          args: Prisma.FAQsDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>
+          args: Prisma.ResourceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>
         }
         update: {
-          args: Prisma.FAQsUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>
+          args: Prisma.ResourceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>
         }
         deleteMany: {
-          args: Prisma.FAQsDeleteManyArgs<ExtArgs>
+          args: Prisma.ResourceDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.FAQsUpdateManyArgs<ExtArgs>
+          args: Prisma.ResourceUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.FAQsUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>[]
+          args: Prisma.ResourceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>[]
         }
         upsert: {
-          args: Prisma.FAQsUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$FAQsPayload>
+          args: Prisma.ResourceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ResourcePayload>
         }
         aggregate: {
-          args: Prisma.FAQsAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateFAQs>
+          args: Prisma.ResourceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateResource>
         }
         groupBy: {
-          args: Prisma.FAQsGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FAQsGroupByOutputType>[]
+          args: Prisma.ResourceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResourceGroupByOutputType>[]
         }
         count: {
-          args: Prisma.FAQsCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.FAQsCountAggregateOutputType> | number
+          args: Prisma.ResourceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ResourceCountAggregateOutputType> | number
         }
       }
     }
@@ -958,12 +958,13 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 
 export const FileScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   fileName: 'fileName',
   filePath: 'filePath',
   mimeType: 'mimeType',
   size: 'size',
   metadata: 'metadata',
+  userId: 'userId',
+  resourceId: 'resourceId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -971,17 +972,17 @@ export const FileScalarFieldEnum = {
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
-export const FAQsScalarFieldEnum = {
+export const ResourceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  question: 'question',
-  answer: 'answer',
+  description: 'description',
+  category: 'category',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type FAQsScalarFieldEnum = (typeof FAQsScalarFieldEnum)[keyof typeof FAQsScalarFieldEnum]
+export type ResourceScalarFieldEnum = (typeof ResourceScalarFieldEnum)[keyof typeof ResourceScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1213,7 +1214,7 @@ export type GlobalOmitConfig = {
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
   file?: Prisma.FileOmit
-  fAQs?: Prisma.FAQsOmit
+  resource?: Prisma.ResourceOmit
 }
 
 /* Types for Logging */

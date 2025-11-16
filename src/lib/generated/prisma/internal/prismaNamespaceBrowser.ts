@@ -54,7 +54,7 @@ export const ModelName = {
   Account: 'Account',
   Verification: 'Verification',
   File: 'File',
-  FAQs: 'FAQs'
+  Resource: 'Resource'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -133,12 +133,13 @@ export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[k
 
 export const FileScalarFieldEnum = {
   id: 'id',
-  userId: 'userId',
   fileName: 'fileName',
   filePath: 'filePath',
   mimeType: 'mimeType',
   size: 'size',
   metadata: 'metadata',
+  userId: 'userId',
+  resourceId: 'resourceId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -146,17 +147,17 @@ export const FileScalarFieldEnum = {
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
-export const FAQsScalarFieldEnum = {
+export const ResourceScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  question: 'question',
-  answer: 'answer',
+  description: 'description',
+  category: 'category',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type FAQsScalarFieldEnum = (typeof FAQsScalarFieldEnum)[keyof typeof FAQsScalarFieldEnum]
+export type ResourceScalarFieldEnum = (typeof ResourceScalarFieldEnum)[keyof typeof ResourceScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -60,9 +60,9 @@ export function AppSidebar() {
 
   const navLinks = [
     { label: 'Home', path: '/', Icon: Home },
-    { label: 'About', path: '/about', Icon: Building },
-    { label: 'Contact', path: '/contact', Icon: Contact },
-    { label: 'courses', path: '/courses', Icon: Book },
+    { label: 'About', path: '#about', Icon: Building },
+    { label: 'Contact', path: '#contact', Icon: Contact },
+    { label: 'Resources', path: '#resources', Icon: Book },
   ];
 
   return (
@@ -85,11 +85,13 @@ export function AppSidebar() {
                 <SidebarMenuItem key={label}>
                   <SidebarMenuButton>
                     {Icon && <Icon className='mr-2' />}
-                    <Link href={path}>{label}</Link>
+                    <Link href={path} onClick={toggleSidebar}>
+                      {label}
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
-              <SidebarMenuItem>
+              {/* <SidebarMenuItem>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <SidebarMenuButton>
@@ -99,7 +101,7 @@ export function AppSidebar() {
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent className='w-56'>
-                    {/* Loop through Classes */}
+                 
                     {classes.map((cls) => (
                       <DropdownMenuItem key={cls.slug} asChild>
                         <DropdownMenu>
@@ -127,7 +129,7 @@ export function AppSidebar() {
                     ))}
                   </DropdownMenuContent>
                 </DropdownMenu>
-              </SidebarMenuItem>
+              </SidebarMenuItem> */}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

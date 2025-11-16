@@ -4,11 +4,12 @@ import { createPortal } from 'react-dom';
 import { Button } from './ui/button';
 import { X, Mail, User2, Lock, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
-import { signIn, signUp } from '@/lib/server-actions/auth-user';
+import { getVerified, signIn, signUp } from '@/lib/server-actions/auth-user';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { useSidebar } from './ui/sidebar';
 import { useForm } from 'react-hook-form';
 import { Input } from './ui/input';
+import { useRouter } from 'next/navigation';
 
 export default function LoginButton(props: any) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function LoginButton(props: any) {
     <>
       <Button
         variant={'outline'}
-        className={`${props.className} text-xs cursor-pointer bg-yellow-500 hover:bg-yellow-500/90 text-black hover:text-white border-yellow-500`}
+        className={`${props.className} text-xs cursor-pointer bg-white hover:bg-white/90 text-black border-white`}
         onClick={openModal}
       >
         <User2 className='mr-2 h-4 w-4' /> Login
@@ -38,14 +39,16 @@ const LoginModal = React.memo(function LoginModal({
 }) {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const firstInputRef = useRef<HTMLInputElement | null>(null);
-  const { toggleSidebar } = useSidebar();
   const isMobile = useIsMobile();
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = useCallback(() => setModalOpen(true), []);
+  const closeModal = useCallback(() => setModalOpen(false), []);
 
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
-
+  const router = useRouter();
   // ✅ React Hook Form Setup
   const {
     register,
@@ -161,20 +164,20 @@ const LoginModal = React.memo(function LoginModal({
           ref={modalRef}
           tabIndex={-1}
           onClick={(e) => e.stopPropagation()}
-          className='relative w-full max-w-md bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-2xl focus:outline-none max-h-[90vh] overflow-auto animate-in fade-in slide-in-from-bottom-4 duration-200'
+          className='relative w-full max-w-md bg-white/65 dark:bg-gray-900 rounded-2xl p-6 shadow-2xl focus:outline-none max-h-[90vh] overflow-auto animate-in fade-in slide-in-from-bottom-4 duration-200'
           style={{ pointerEvents: 'auto' }}
         >
           <button
             onClick={onClose}
             aria-label='Close login form'
-            className='absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-accent-strong rounded-full p-1 transition-colors'
+            className='absolute top-4 right-4 text-gray-700 hover:text-gray-600 dark:hover:text-gray-300 focus:outline-none focus:ring-2 focus:ring-accent-strong rounded-full p-1 transition-colors'
           >
             <X className='w-5 h-5' aria-hidden='true' />
           </button>
 
           <div className='text-center mb-6'>
             <h2 className='text-2xl font-bold text-gray-900 dark:text-white mb-2'>Welcome Back</h2>
-            <p className='text-sm text-gray-600 dark:text-gray-400'>
+            <p className='text-sm text-gray-700 dark:text-gray-400'>
               {activeTab === 'login' ? 'Sign in to your account' : 'Create your account'}
             </p>
           </div>
@@ -186,7 +189,7 @@ const LoginModal = React.memo(function LoginModal({
               className={`flex-1 py-2 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === 'login'
                   ? 'border-accent-strong text-accent-strong'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                  : 'border-transparent text-gray-700 hover:text-gray-700 dark:hover:text-gray-300'
               }`}
             >
               Login
@@ -197,7 +200,7 @@ const LoginModal = React.memo(function LoginModal({
               className={`flex-1 py-2 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === 'signup'
                   ? 'border-accent-strong text-accent-strong'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                  : 'border-transparent text-gray-700 hover:text-gray-700 dark:hover:text-gray-300'
               }`}
             >
               Sign Up
@@ -218,7 +221,7 @@ const LoginModal = React.memo(function LoginModal({
                     id='firstName'
                     type='text'
                     {...register('firstName', { required: activeTab === 'signup' })}
-                    className='w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:border-accent-strong focus:ring-2 focus:ring-accent-strong/20 transition-colors'
+                    className='w-full rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 px-3 py-2 text-sm text-gray-900 dark:text-white placeholder-gray-500 transition-colors'
                     placeholder='John'
                   />
                 </div>
@@ -299,7 +302,11 @@ const LoginModal = React.memo(function LoginModal({
                 </label>
                 <button
                   type='button'
-                  className='text-sm text-accent-strong hover:text-accent-strong/80 font-medium transition-colors'
+                  onClick={() => {
+                    onClose();
+                    router.push('/forgot-password');
+                  }}
+                  className='cursor-pointer text-sm text-accent-strong hover:text-accent-strong/80 font-medium transition-colors'
                 >
                   Forgot password?
                 </button>
@@ -325,7 +332,7 @@ const LoginModal = React.memo(function LoginModal({
           </form>
 
           <div className='mt-6 text-center'>
-            <p className='text-sm text-gray-600 dark:text-gray-400'>
+            <p className='text-sm text-gray-700 dark:text-gray-400'>
               {activeTab === 'login' ? "Don't have an account? " : 'Already have an account? '}
               <button
                 type='button'
@@ -334,6 +341,13 @@ const LoginModal = React.memo(function LoginModal({
               >
                 {activeTab === 'login' ? 'Sign up' : 'Sign in'}
               </button>
+            </p>
+          </div>
+          <div className='flex flex-col items-center gap-2 border-black border-t pt-3 mt-3 text-sm font-inter text-gray-700'>
+            <p>© {new Date().getFullYear()} Leaders Coaching Center. All rights reserved.</p>
+            <p className='mt-3 md:mt-0'>
+              Crafted with ❤️ by{' '}
+              <span className='text-black font-semibold  transition'>Zebotix</span>
             </p>
           </div>
         </div>

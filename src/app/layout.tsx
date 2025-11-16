@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Dosis, Inter, Merriweather } from 'next/font/google';
+import { Inter, Merriweather } from 'next/font/google';
 import './globals.css';
 export const metadata: Metadata = {
   title: {

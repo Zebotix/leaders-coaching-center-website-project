@@ -16,10 +16,10 @@ export default function ContactButton() {
       {/* Floating Contact Button */}
       <Button
         onClick={openModal}
-        className='z-50 fixed bottom-8 right-8 bg-accent-strong hover:bg-accent-strong/90 text-white rounded-full size-8 sm:size-10 flex items-center justify-center shadow-lg focus:outline-none focus:ring-4 focus:ring-accent-strong/40 transition-all duration-200 cursor-pointer'
+        className='z-50 fixed bottom-8 right-8 bg-accent-strong hover:bg-accent-strong/90 text-white rounded-full size-10 flex items-center justify-center shadow-lg focus:outline-none focus:ring-4 focus:ring-accent-strong/40 transition-all duration-200 cursor-pointer'
         aria-label='Contact us'
       >
-        <Mail className='sm:scale-125' aria-hidden='true' />
+        <Mail className='size-6' aria-hidden='true' />
       </Button>
 
       {/* Contact Modal */}
@@ -138,7 +138,7 @@ const ContactModal = React.memo(function ContactModal({
           ref={modalRef}
           tabIndex={-1}
           onClick={(e) => e.stopPropagation()}
-          className='relative w-full max-w-lg bg-accent-strong/90 rounded-2xl p-8 shadow-2xl text-gray-100 focus:outline-none max-h-[90vh] overflow-auto animate-in fade-in slide-in-from-bottom-4 duration-200'
+          className='relative w-full max-w-lg bg-indigo-950/60 rounded-2xl p-8 shadow-2xl text-gray-100 focus:outline-none max-h-[90vh] overflow-auto animate-in fade-in slide-in-from-bottom-4 duration-200'
         >
           {/* Close Button */}
           <button
@@ -153,7 +153,7 @@ const ContactModal = React.memo(function ContactModal({
           <h2 id='contact-modal-title' className='text-2xl font-semibold mb-4 text-white'>
             Contact Us
           </h2>
-          <p className='text-sm text-gray-300 mb-6'>
+          <p className='text-sm text-gray-200 mb-6'>
             Fill out the form below and we’ll get back to you shortly.
           </p>
 
@@ -169,7 +169,7 @@ const ContactModal = React.memo(function ContactModal({
                 type='text'
                 onChange={handleInputchange}
                 required
-                className='w-full rounded-md bg-accent-strong/10 border focus:border-accent-strong focus:ring-2 focus:ring-accent-strong p-2 text-gray-100 placeholder-gray-400'
+                className='w-full rounded-md bg-accent-strong/10 border focus:border-accent-strong focus:ring-2 focus:ring-accent-strong p-2 text-gray-100 placeholder-gray-300'
                 placeholder='Your name'
               />
             </div>
@@ -184,7 +184,7 @@ const ContactModal = React.memo(function ContactModal({
                 type='email'
                 onChange={handleInputchange}
                 required
-                className='w-full rounded-md bg-accent-strong/10 border focus:border-accent-strong focus:ring-2 focus:ring-accent-strong p-2 text-gray-100 placeholder-gray-400'
+                className='w-full rounded-md bg-accent-strong/10 border focus:border-accent-strong focus:ring-2 focus:ring-accent-strong p-2 text-gray-100 placeholder-gray-300'
                 placeholder='you@example.com'
               />
             </div>
@@ -199,7 +199,7 @@ const ContactModal = React.memo(function ContactModal({
                 rows={4}
                 onChange={handleInputchange}
                 required
-                className='w-full rounded-md bg-accent-strong/10 border focus:border-accent-strong focus:ring-2 focus:ring-accent-strong p-2 text-gray-100 placeholder-gray-400 resize-none'
+                className='w-full rounded-md bg-accent-strong/10 border focus:border-accent-strong focus:ring-2 focus:ring-accent-strong p-2 text-gray-100 placeholder-gray-300 resize-none'
                 placeholder='Your message...'
               />
             </div>
@@ -207,12 +207,21 @@ const ContactModal = React.memo(function ContactModal({
             <div className='flex justify-center'>
               <Button
                 type='submit'
-                className='text-black bg-yellow-500 hover:bg-yellow-500/90 transition-colors'
+                className='text-black bg-white hover:bg-white/90 transition-colors'
               >
                 {loading ? 'Sending...' : 'Send Message'}
               </Button>
             </div>
           </form>
+          <div className='flex flex-col items-center gap-2 border-white border-t pt-3 mt-3 text-sm font-inter text-gray-300'>
+            <p>© {new Date().getFullYear()} Leaders Coaching Center. All rights reserved.</p>
+            <p className='mt-3 md:mt-0'>
+              Crafted with ❤️ by{' '}
+              <span className='text-white font-semibold hover:text-blue-400 transition'>
+                Zebotix
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </>,

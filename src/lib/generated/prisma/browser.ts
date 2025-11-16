@@ -43,7 +43,7 @@ export type Verification = Prisma.VerificationModel
  */
 export type File = Prisma.FileModel
 /**
- * Model FAQs
+ * Model Resource
  * 
  */
-export type FAQs = Prisma.FAQsModel
+export type Resource = Prisma.ResourceModel

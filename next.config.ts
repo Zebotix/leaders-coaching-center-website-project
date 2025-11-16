@@ -53,8 +53,8 @@ const nextConfig: NextConfig = {
     ];
   },
   // Add these for better HTTPS enforcement
-  trailingSlash: true,
-  poweredByHeader: false,
+  //   trailingSlash: true,
+  //   poweredByHeader: false,
   productionBrowserSourceMaps: false,
   reactCompiler: true,
   turbopack: {},

@@ -25,7 +25,7 @@ export async function uploadFileAction({ file, savePath }: { file: File; savePat
         },
       });
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
       return 'Unauthorized: User not found.';
     }
 
@@ -65,7 +65,7 @@ export async function uploadFileAction({ file, savePath }: { file: File; savePat
             lastModified: (file as any).lastModified ?? null,
           })
         ),
-        user: {
+        uploadedBy: {
           connect: { id: session.user.id },
         },
       },

@@ -26,13 +26,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href='/courses' className='hover:text-white transition'>
-                  Courses
-                </a>
-              </li>
-              <li>
-                <a href='/exams' className='hover:text-white transition'>
-                  Exams
+                <a href='#resources' className='hover:text-white transition'>
+                  Resources
                 </a>
               </li>
               <li>

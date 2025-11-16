@@ -44,31 +44,31 @@ export default function DashboardCarousel() {
   ];
 
   return (
-    <div className='overflow-x-hidden w-full flex justify-center'>
+    <div className='selection:bg-transparent overflow-x-hidden w-full flex justify-center '>
       <Carousel
-        className='w-full max-w-8xl rounded-xl overflow-hidden shadow-lg relative group'
+        className='w-full max-w-8xl rounded-xl overflow-hidden  shadow-lg relative group'
         plugins={[autoplay.current]}
       >
         <CarouselContent>
           {slides.map((slide, index) => (
-            <CarouselItem key={index}>
-              <Card className='relative border-none shadow-none'>
-                <CardContent className='p-0'>
+            <CarouselItem key={index} className=' rounded-xl'>
+              <Card className='relative border-none shadow-none rounded-xl'>
+                <CardContent className='p-0 rounded-xl'>
                   <div
                     className='relative w-full 
-                    h-[400px] lg:h-[570px]'
+                    h-[400px] lg:h-[570px] rounded-xl'
                   >
                     <Image
                       src={slide.image}
                       alt={slide.title}
                       fill
-                      className='object-cover'
+                      className='object-cover rounded-xl'
                       priority={index === 0}
                     />
 
                     {/* Overlay */}
                     <div
-                      className='absolute inset-0 bg-black/50 
+                      className='absolute inset-0 bg-linear-to-b from-transparent rounded-xl to-black  
                       flex flex-col justify-end 
                       px-3 py-4 sm:px-6 sm:py-6 
                       text-white'
