@@ -121,7 +121,7 @@ const ContactModal = React.memo(function ContactModal({
     <>
       {/* Overlay */}
       <div
-        className='fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity'
+        className='fixed inset-0 bg-black/60 backdrop-blur-lg z-40 transition-opacity'
         onClick={onClose}
         aria-hidden='true'
       />
