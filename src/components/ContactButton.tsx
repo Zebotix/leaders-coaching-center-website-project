@@ -213,9 +213,9 @@ const ContactModal = React.memo(function ContactModal({
               </Button>
             </div>
           </form>
-          <div className='flex flex-col items-center gap-2 border-white border-t pt-3 mt-3 text-sm font-inter text-gray-300'>
+          <div className='flex flex-col items-center gap-2 border-white border-t pt-3 mt-3 text-xs font-inter text-gray-300 text-center'>
             <p>© {new Date().getFullYear()} Leaders Coaching Center. All rights reserved.</p>
-            <p className='mt-3 md:mt-0'>
+            <p>
               Crafted with ❤️ by{' '}
               <a
                 href='https://www.zebotix.com'
