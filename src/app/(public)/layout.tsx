@@ -16,9 +16,9 @@ export default async function PublicLayout(
 ) {
   const cookieStore = await cookies();
   const defaultOpen = cookieStore.get('sidebar_state')?.value === 'true';
-  const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
-  });
+  //   const session = await auth.api.getSession({
+  //     headers: await headers(), // you need to pass the headers object.
+  //   });
 
   //   console.log('user session', session);
   return (
@@ -35,7 +35,7 @@ export default async function PublicLayout(
           defaultOpen={defaultOpen}
         >
           <div className='w-screen flex min-h-screen flex-col'>
-            <Navbar user={session?.user} />
+            <Navbar />
             {children}
             <ContactButton />
             <Footer />

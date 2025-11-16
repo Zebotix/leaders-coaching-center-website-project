@@ -32,22 +32,7 @@ const navLinks = [
   { label: 'Resources', path: '#resources' },
 ];
 
-export default function Navbar({
-  user,
-}: {
-  user:
-    | {
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        email: string;
-        emailVerified: boolean;
-        name: string;
-        image?: string | null | undefined | undefined;
-      }
-    | null
-    | undefined;
-}) {
+export default function Navbar() {
   const router = useRouter();
   const pathName = usePathname();
 
