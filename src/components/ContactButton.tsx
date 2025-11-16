@@ -217,9 +217,12 @@ const ContactModal = React.memo(function ContactModal({
             <p>© {new Date().getFullYear()} Leaders Coaching Center. All rights reserved.</p>
             <p className='mt-3 md:mt-0'>
               Crafted with ❤️ by{' '}
-              <span className='text-white font-semibold hover:text-blue-400 transition'>
+              <a
+                href='https://www.zebotix.com'
+                className='text-white font-semibold hover:text-indigo-500 transition'
+              >
                 Zebotix
-              </span>
+              </a>
             </p>
           </div>
         </div>
