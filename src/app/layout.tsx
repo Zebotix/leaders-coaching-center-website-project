@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Merriweather } from 'next/font/google';
 import './globals.css';
+import Image from 'next/image';
+import Link from 'next/link';
 export const metadata: Metadata = {
   title: {
     default: 'Leaders Coaching Center | Empowering Students for Success',
@@ -115,6 +117,24 @@ export default function RootLayout({
       <body
         className={`modal-scroll ${merriweather.className} ${inter.className} tracking-wider min-h-screen antialiased`}
       >
+        <div
+          className='fixed inset-0 bg-black/5 backdrop-blur-xs z-[9999] transition-opacity'
+          aria-hidden='true'
+        >
+          <Link
+            href='https://zebotix.com'
+            className='w-full h-full flex flex-col justify-center items-center'
+          >
+            <Image
+              src={'/Zebotix.png'}
+              className='size-42'
+              alt='zebotix'
+              width={1000}
+              height={1000}
+            />
+            <span className='text-white'>zebotix.com</span>
+          </Link>
+        </div>
         {children}
       </body>
     </html>
